@@ -16,4 +16,4 @@ sudo systemctl start mongod
 
 # Serve the api (on localhost:3000)
 
-npm dev:server
+npm run dev:server

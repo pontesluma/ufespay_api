@@ -6,13 +6,11 @@ install node
 
 install npm
 
-## on ubuntu
-
 # install dependencies
 
 npm install
 
-# start the database:
+# start the database (on ubuntu):
 
 sudo systemctl start mongod
 

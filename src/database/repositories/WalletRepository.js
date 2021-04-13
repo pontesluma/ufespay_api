@@ -10,6 +10,14 @@ class WalletRepository {
   async delete(id) {
     await Wallet.deleteOne({ _id: id });
   }
+  
+  async update(id, newValue) {
+    await Wallet.findOneAndUpdate({ _id: id }, {value : newValue})
+  }
+
+  async getWalletTransactions(id, newValue) {
+    await Wallet.findOneAndUpdate({ _id: id }, {value : newValue})
+  }
 }
 
 export default WalletRepository;

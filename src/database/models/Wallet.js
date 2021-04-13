@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const WalletSchema = new mongoose.Schema({
-  value: { type: Number, default: 30000 },
+  value: { type: Number, default: 0 },
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }],
 });
 

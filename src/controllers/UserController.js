@@ -28,7 +28,7 @@ class UserController {
     // create user
     const user = await userRepository.create(name, email, password, wallet._id);
 
-    return res.status(200).json({ user })
+     return res.status(200).json({ user })
   }
 
   async delete(req, res) {

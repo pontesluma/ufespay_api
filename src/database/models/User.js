@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true, minLength: 3, maxLength: 20 },
+  name: { type: String, required: true },
   email: { type: String, required: true },
-  password: { type: String, required: true, minLength: 6 },
+  password: { type: String, required: true },
   wallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Wallet', required: true },
   created_at: { type: Date, default: new Date() },
   updated_at: { type: Date, default: new Date() },

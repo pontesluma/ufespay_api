@@ -13,7 +13,17 @@ class UserRepository {
   }
 
   async findByEmail(email) {
-    const user = await User.findOne({ email: email }, 'id name email wallet').exec();
+    const user = await User.findOne({ email: email }, 'id name email wallet password').exec();
+    return user;
+  }
+
+  async findByName(name) {
+    const user = await User.find({ name: name }, 'id name email wallet password').exec();
+    return user;
+  }
+
+  async findById(id) {
+    const user = await User.findById(id, 'id name email wallet').exec();
     return user;
   }
 

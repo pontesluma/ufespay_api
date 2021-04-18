@@ -3,8 +3,8 @@ import User from '../models/User.js';
 import Comment from '../models/Comment.js';
 
 class TransactionRepository {
-  async create() {
-    const newTransaction = new Transaction({});
+  async create(data) {
+    const newTransaction = new Transaction(data);
     await newTransaction.save();
     return newTransaction;
   }
@@ -22,6 +22,14 @@ class TransactionRepository {
       })
       .exec();
     return transaction;
+  }
+
+  async findById(id) {
+    return Transaction.findById(id).populate('likes');
+  }
+
+  async save(transaction) {
+    return transaction.save();
   }
 
   async delete(id) {

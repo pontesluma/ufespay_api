@@ -7,24 +7,30 @@ class UserRepository {
     delete newUser.password;
     return newUser;
   }
-
-  async list() {
-    return await User.find({});
-  }
-
+  
   async findByEmail(email) {
     const user = await User.findOne({ email: email }, 'id name email wallet password').populate('wallet').exec();
     return user;
   }
 
-  async findByName(name) {
-    const user = await User.find({ name: name }, 'id name email wallet password').populate('wallet').exec();
+  async findById(id) {
+    const user = await User.findById(id, 'id name email wallet password').populate('wallet').exec();
     return user;
   }
 
-  async findById(id) {
-    const user = await User.findById(id, 'id name email wallet').populate('wallet').exec();
-    return user;
+  async getOthers(userId) {
+    return User.find({ _id: { $ne: String(userId) } }, 'name email');
+  }
+
+  async update(userId, newUserData){
+    const changedUser = await User.findByIdAndUpdate(
+      userId,
+      newUserData,
+    );
+
+    const updatedUser = await changedUser.save();
+
+    return updatedUser;
   }
 
   async delete(email) {

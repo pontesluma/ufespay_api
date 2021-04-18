@@ -7,6 +7,14 @@ class WalletRepository {
     return newWallet;
   }
 
+  async findById(id) {
+    return Wallet.findById(id);
+  }
+
+  async save(user) {
+    return user.save();
+  }
+
   async delete(id) {
     await Wallet.deleteOne({ _id: id });
   }

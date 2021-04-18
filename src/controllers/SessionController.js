@@ -1,30 +1,35 @@
-import UserRepository from '../database/repositories/UserRepository.js';
-
 import jwt from 'jsonwebtoken';
 
 class SessionController {
+  setDependencies(userRepository){
+    this.userRepository = userRepository;
+  }
+
   async signIn(req, res) {
-    const { email, password } = req.body;
+    try {
+      const { email, password } = req.body;
 
-    const userRepository = new UserRepository();
+      const user = await this.userRepository.findByEmail(email);
 
-    const user = await userRepository.findByEmail(email);
+      if(!user) {
+        return res.status(400).json({ message: 'Invalid email!' });
+      }
 
-    if(!user) {
-      return res.status(400).json({ message: 'Invalid email!' });
+      if(password !== user.password) {
+        return res.status(400).json({ message: 'Wrong password!' });
+      }
+      
+      const id = user._id;
+
+      const token = jwt.sign({ id }, 'secret', {
+        expiresIn: 20 * 60,
+      });
+
+      return res.status(200).json({ token, user });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: 'Something went wrong!' });
     }
-
-    if(password !== user.password) {
-      return res.status(400).json({ message: 'Wrong password!' });
-    }
-    
-    const id = user._id;
-
-    const token = jwt.sign({ id }, 'secret', {
-      expiresIn: 20 * 60,
-    });
-
-    return res.status(200).json({ token, user });
   }
 
   async signOut(req, res) {

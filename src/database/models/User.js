@@ -5,9 +5,6 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   wallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Wallet', required: true },
-  created_at: { type: Date, default: new Date() },
-  updated_at: { type: Date, default: new Date() },
-  deleted_at: { type: Date, default: undefined },
 });
 
 const User = mongoose.model('User', UserSchema);

@@ -24,7 +24,7 @@ class SessionController {
       expiresIn: 20 * 60,
     });
 
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, user });
   }
 
   async signOut(req, res) {

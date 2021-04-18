@@ -48,27 +48,33 @@ class UserController {
     return res.status(200).json({ user })
   }
 
-  // async list(req, res) {
-  //   const { name } = req.params;
+  async list(req, res) {
+    const { userId } = req;
 
-  //   const userRepository = new UserRepository();
+    const users = await User.find({ _id: { $ne: String(userId) } }, 'name email');
 
-  //   const user = await userRepository.findById(userId);
-
-  //   if (!user) {
-  //     return res.status(400).json({ message: 'User do not exist.'});
-  //   }
-
-  //   return res.status(200).json({ user })
-  // }
+    return res.status(200).json({ users })
+  }
 
   async update(req, res) {
     const { userId } = req;
-    const { name, email, password } = req.body;
+    const { name, email, newPassword, password } = req.body;
 
-    const user = await User.findByIdAndUpdate(
+    const user = await User.findById(userId);
+
+    if(newPassword && user.password !== password) {
+      return res.status(400).json({ message: 'Wrong password.' });
+    } 
+
+    const newUserData = { name, email, password: newPassword };
+
+    Object.keys(newUserData).forEach(key => {
+      if (!newUserData[key]) delete newUserData[key];
+    });
+
+    const changedUser = await User.findByIdAndUpdate(
       userId,
-      { name, email, password, updated_at: new Date() },
+      { ...newUserData, updated_at: new Date() },
       (err, result) => {
         if(err){
             return res.status(500).json({ err, message: 'Something went wrong!' });
@@ -76,7 +82,7 @@ class UserController {
       }
     );
 
-    const updatedUser = await user.save();
+    const updatedUser = await changedUser.save();
 
     return res.status(200).json({ user: updatedUser })
   }

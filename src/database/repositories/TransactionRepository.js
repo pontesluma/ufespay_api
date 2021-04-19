@@ -1,6 +1,4 @@
 import Transaction from '../models/Transaction.js';
-import User from '../models/User.js';
-import Comment from '../models/Comment.js';
 
 class TransactionRepository {
   async create(data) {

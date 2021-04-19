@@ -1,23 +1,31 @@
-# ufespay_api
+# Ufespay
 
-install mongodb https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+This is the back-end of the ufespay application.
 
-install node
+Tech stack:
 
-install npm
+- Node
+- Express
+- Mongoose
+- Yarn (as package manager)
+- JWT
+- Cors
 
-# install dependencies
+In order to run the server you need to create a .env file with the following text:
 
-npm install
-ou
-yarn
+`
+SECRET=secret
+PORT=3003
+`
 
-# start the database (on ubuntu):
+## Available Scripts
 
-sudo systemctl start mongod
+In the project directory, you can run:
 
-# Serve the api (on localhost:3000)
+## `yarn`
 
-npm run dev:server
-ou
-yarn dev:server
+Install dependencies
+
+### `yarn dev:server`
+
+Runs the server on [http://localhost:3003](http://localhost:3003).

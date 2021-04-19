@@ -9,7 +9,7 @@ function ensureAuth(req, res, next){
 
   const [, token] = authHeader.split(' ');
     
-  jwt.verify(token, 'secret', (err, decoded) => {
+  jwt.verify(token, process.env.SECRET, (err, decoded) => {
     if (err) return res.status(500).json({ message: 'Invalid token.' });
   
     req.userId = decoded.id;

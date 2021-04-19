@@ -21,7 +21,7 @@ class SessionController {
       
       const id = user._id;
 
-      const token = jwt.sign({ id }, 'secret', {
+      const token = jwt.sign({ id }, process.env.SECRET, {
         expiresIn: 20 * 60,
       });
 
